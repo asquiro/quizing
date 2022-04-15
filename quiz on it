@@ -1,0 +1,149 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(Quizzer());
+
+class Quizzer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Quiz Display',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              decorationColor: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        body: QuizerPage(),
+      ),
+    );
+  }
+}
+
+class QuizerPage extends StatefulWidget {
+  const QuizerPage({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _QuizerPageState();
+  }
+}
+
+class _QuizerPageState extends State<QuizerPage> {
+  int serialNumber = 0;
+
+  List<String> question = [
+    'do you love nigeria',
+    'is okon a boy',
+    'atim is a girl',
+    'matthew is my frined',
+    'de country is brown',
+    'to hail with fake people',
+    'see your teeth'
+  ];
+
+  List<bool> answer = [
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      textDirection: TextDirection.ltr,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Expanded(
+          flex: 6,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Center(
+              child: Text(
+                question[serialNumber],
+                style: TextStyle(
+                    decoration: TextDecoration.none,
+                    decorationThickness: 3.0,
+                    color: Colors.indigo,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        Card(
+          color: Colors.black,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: FlatButton(
+              child: Center(
+                child: Text(
+                  'True',
+                  style: TextStyle(
+                      decoration: TextDecoration.none,
+                      decorationThickness: 3.0,
+                      color: Colors.green,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              onPressed: () {
+                bool correctAnswer = answer[serialNumber];
+                if (correctAnswer == false) {
+                  print('user entered a wrong input');
+                } else {
+                  print('user entered the right input');
+                }
+                setState(() {
+                  serialNumber++;
+                });
+                print(serialNumber);
+              },
+            ),
+          ),
+        ),
+        Card(
+          color: Colors.amber,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: FlatButton(
+              child: Center(
+                child: Text(
+                  'False',
+                  style: TextStyle(
+                      decoration: TextDecoration.none,
+                      decorationThickness: 3.0,
+                      color: Colors.red,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              onPressed: () {
+                bool correctAnswer = answer[serialNumber];
+                if (correctAnswer == true) {
+                  print('user got it right');
+                } else {
+                  print('user got it wrong');
+                }
+                setState(() {
+                  serialNumber++;
+                });
+                print(serialNumber);
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
